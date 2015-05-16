@@ -1,5 +1,6 @@
 <html>
   <head>
+      <script type="text/javascript" src="hammergrapher.js"></script>
       <script type="text/javascript" src="dygraph-combined-dev.js"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
       
@@ -16,57 +17,8 @@
 <div id="graphdiv"></div>
 
 <script type="text/javascript">
-
-//The URL 
-  var url = "http://vizz.water-test.appspot.com/water/series?coords=%5B%5B-119.794921875,39.36297059491874%5D,%5B-119.86633300781249,39.29179704377487%5D,%5B-119.8443603515625,39.193948213963644%5D,%5B-119.70703125,39.198205348894795%5D,%5B-119.73861694335938,39.32686172585973%5D,%5B-119.794921875,39.36297059491874%5D%5D&begin=2010-01-01";
-
-//AJAX Call to process the data
-  $.ajax({
-              url: url,
-              dataType: 'json',
-               success: function(data) {
-
-                  //return data
-                     datafile = data.result;
-
-                  //length of datafile
-                      lengths = datafile.length;
-
-                  //csv array placeholder
-                      csv = [];
- 
-                  //Convert data from json to csv
-                     for( var i = 0; i < lengths; i++ ){
-                        csv.push( [Date.parse(datafile[i].date) , datafile[i].area] );
-                        console.log(i);
-                        };
-
-                  //Run Dygraph
-                     g = new Dygraph(
-                          // containing div
-                          document.getElementById("graphdiv"),
-                          csv,
-                             {
-                               ylabel: 'Area (sq mi)',
-                               drawXGrid: false,
-                               drawYGrid: false,
-                               colors: ["#5F94D9"],
-                               fillGraph: true,
-                               drawPoints: true,
-                               labels: ['Date', 'Area (sq mi)'],
-                               axes: {
-                                   x: {
-                                       valueFormatter: Dygraph.dateString_, //set date format
-                                       axisLabelFormatter: Dygraph.dateAxisFormatter,
-                                       ticker: Dygraph.dateTicker
-                                   }
-                               }
-                             }
-
-                        );
-                  }    
-        });
-           
+    var url = "http://vizz.water-test.appspot.com/water/series?coords=%5B%5B-119.794921875,39.36297059491874%5D,%5B-119.86633300781249,39.29179704377487%5D,%5B-119.8443603515625,39.193948213963644%5D,%5B-119.70703125,39.198205348894795%5D,%5B-119.73861694335938,39.32686172585973%5D,%5B-119.794921875,39.36297059491874%5D%5D&begin=2010-01-01"
+    hammergrapher(url)
 </script>
 </body>
 </html>
